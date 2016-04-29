@@ -1,0 +1,41 @@
+; instansiasi
+
+(make-instance travelStep18a of TRAVEL_STEP
+    (destination toronto)
+    (begin_date 12 21 06)
+    (end_date 12 21 06)
+    (cost 321)
+)
+
+(make-instance trip18 of TRIP
+    (first_step (send [travelStep18a] get-self))
+)
+
+(make-instance travelStep18b of TRAVEL_STEP
+    (destination newark)
+    (begin_date 12 22 06)
+    (end_date 12 22 06)
+    (previous_step (send [travelStep18a] get-self))
+    (cost 321)
+)
+
+; test
+
+(send [travelStep18a] get-next_step)
+;<Instance-travelStep18b>
+
+(send (send [travelStep18a] get-destination_lodging_stay) get-place)
+;toronto
+
+(send [travelStep18a] get-means)
+;airplane
+(send [travelStep18b] get-means)
+;airplane
+
+(send [travelStep18a] get-origin)
+;newark
+(send [travelStep18b] get-origin)
+;toronto
+
+(send [trip18] get-total_cost)
+;766.75
